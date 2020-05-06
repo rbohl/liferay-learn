@@ -42,7 +42,6 @@ function main {
 #
 function build_the_site {
 
-    _pre_process_input
     _set_build_data $1 $2
     # deal with each argument we want to accept
     case $product_name in
@@ -66,6 +65,7 @@ function build_the_site {
         "commerce"|"dxp"|"dxp-cloud")
             # do common stuff for a single-product-build
             echo "Building $product_name $version_name"
+            _pre_process_input
             _generate_input 
             dir_name="homepage"
             _generate_static_html_output
@@ -81,6 +81,7 @@ function build_the_site {
             ;&
         "all"|"prod")
             echo "Building all products and versions"
+            _pre_process_input
             _util_scripts
             for product_name in `find ../docs -maxdepth 1 -mindepth 1 -printf "%f\n" -type d`; do
                 for version_name in `find ../docs/${product_name} -maxdepth 1 -mindepth 1 -printf "%f\n" -type d`; do
@@ -255,8 +256,26 @@ function _post_process_output {
 #
 function _post_clean_for_prod {
 
-    echo "TODO: delete all the dirname/html folders, and clean up the root dir (get rid of homepage, anything else?)"
+    echo "TODO: delete all the dirname/html folders, delete all README.html" \
+    "files,and clean up the root dir (get rid of homepage, clean the html" \
+    "folder of all but the .buildinfo, anything else?)"
 
+    # test: there's no build/output/homepage folder
+    # ls -a build/output
+    rm -r build/output/homepage
+
+    # test: there's no README.html file anywhere in the build/outout dir
+    # find build/output -name "README.html" -type f | wc-l
+    find build/output/ -name "README.html" -type f -exec rm {} +
+
+    # test: there's a html folder with just a .buildinfo file in:
+    # build/output root, commerce-2.x, dxp-cloud-latest, dxp-7.x
+    # find build/output -name "html" -type d -exec ls -a {} +
+    for html_dir in 'find build/output/ -name "html" -type d'
+    do
+        #find build/output/$html_dir -name "*" ! -name ".buildinfo" -exec rm -rf
+        rm -rf $(find build/output/$html_dir -name "*" ! -name ".buildinfo")
+    done
 }
 
 #
