@@ -45,8 +45,6 @@ function build_the_site {
     _set_build_data $1 $2
     # deal with each argument we want to accept
     case $product_name in
-        # For each specific product, set the default version name if none is
-        # provided, then populate the input dir with only that product/ver
         "commerce")      
             if [[ $version_name == "default" ]]; then
               version_name=${COMMERCE_DEFLT_VER}
@@ -80,6 +78,7 @@ function build_the_site {
             _pre_clean_for_prod
             ;&
         "all"|"prod")
+            # do the common stuff for prod and all
             echo "Building all products and versions"
             _pre_process_input
             _util_scripts
@@ -156,7 +155,8 @@ function upload_to_server {
 }
 
 #
-# bashDoc
+# For a production build, we must delete the build directory entirely and make
+# sure the git index is clean.
 #
 function _pre_clean_for_prod {
 
@@ -238,43 +238,37 @@ function _post_process_output {
 			rsync -a ${readme_file_name} $(dirname ${readme_file_name})/index.html
 		done
 
-        # could this be subsumed by the find we're already doing above? like add "searchindex.js" to the find pattern? Or are there more than README.html refs to replace in the search indexes?
+        # could this be subsumed by the find we're already doing above? like
+        # add "searchindex.js" to the find pattern? Or are there more than
+        # README.html refs to replace in the search indexes?
 		sed -i 's/README"/index"/g' build/output/${dir_name}/searchindex.js
 }
 
 #
-# Root files and dirs to preserve: 404.html  commerce-2.x/  contents.html
-# doctrees/  dxp-7.x/  dxp-cloud-latest/  genindex.html  html/  index.html
-# objects.inv  search.html  searchindex.js  _sources/  _static/ [sources and
-# static also in the rot of every project?]
-#
-# Actually we probably should get rid of html, since in the current build it's
-# empty anyway. We definitely don't want contents in there.
-#
-# What about the html folder in the root of the build/output? It contains the
-# .buildinfo, do we want that around for publication?
+# Our partial build support wants speed above all else, so it leaves our
+# build/ouput directory in a production unfriendly state. This function cleans
+# it up, by doing three things:
+#   1.  Delete all README.html files thoughout the output folder.
+#   2.  Delete the build/output/homepage folder
+#   3.  For evey "html" folder in the output folder, leave only the hidden
+#   .buildinfo file behind. All other contents are deleted.
 #
 function _post_clean_for_prod {
 
-    echo "TODO: delete all the dirname/html folders, delete all README.html" \
-    "files,and clean up the root dir (get rid of homepage, clean the html" \
-    "folder of all but the .buildinfo, anything else?)"
+    echo "Deleting all README.html files, deleting build/output/homepage, and cleaning the build/output/*/html directories so they contain only a .buildinfo file" 
 
-    # test: there's no build/output/homepage folder
-    # ls -a build/output
     rm -r build/output/homepage
 
-    # test: there's no README.html file anywhere in the build/outout dir
-    # find build/output -name "README.html" -type f | wc-l
     find build/output/ -name "README.html" -type f -exec rm {} +
 
-    # test: there's a html folder with just a .buildinfo file in:
-    # build/output root, commerce-2.x, dxp-cloud-latest, dxp-7.x
-    # find build/output -name "html" -type d -exec ls -a {} +
-    for html_dir in 'find build/output/ -name "html" -type d'
+    for html_dir in `find build/output -name "html" -type d`
     do
-        #find build/output/$html_dir -name "*" ! -name ".buildinfo" -exec rm -rf
-        rm -rf $(find build/output/$html_dir -name "*" ! -name ".buildinfo")
+        # so ugly but the mv preserves the hidden file .buildinfo
+        pushd $html_dir
+            mkdir ../temp
+            mv * ../temp
+            rm -r ../temp
+        popd
     done
 }
 
@@ -320,7 +314,7 @@ function _util_scripts {
 }
 
 #
-# Zip the source code files in direcotries named *.zip.
+# Zip the source code folders named *.zip.
 #
 # If any file in a source code directory has been updated since the last build
 # (or if the build directory is cleaned for prod), we'll rezip it. Otherwise,
