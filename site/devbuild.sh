@@ -96,10 +96,10 @@ function build_the_site {
                 _zip_src_code
             done
             _post_process_homepage
-            _post_clean_for_prod
             ;;&
         "prod")
             echo "Uploading to server"
+            _post_clean_for_prod
             upload_to_server
         ;&
         "all"|"prod")
@@ -208,12 +208,13 @@ function _generate_static_html_output {
 #
 function _post_process_homepage {
     
+    # todo, test whether the
     echo "Moving the homepage contents up a dir"
     rsync -a build/output/homepage/* build/output
 }
    
 #
-# After sphinx-build, we want to reorganizae some things in the site. For
+# After sphinx-build, we want to reorganize some things in the site. For
 # instance, we don't want the docs to be underneath a /html/ doler, because
 # this will translate to a URL. We're only serving html, so we get rid of this.
 #
@@ -223,7 +224,11 @@ function _post_process_homepage {
 #
 function _post_process_output {
     echo "Done building, processing output for $dir_name"
-		rsync -a build/output/${dir_name}/html/* build/output/${dir_name}
+
+        # todo, test whether we need this for speed. can we actaully do a mv
+        # and still get a partial build? would make the production case cleaner
+        # if so
+		rsync -a build/output/${dir_name}/html/. build/output/${dir_name}
 
         # sphinx-build won't do this for us inside admonitions
         find build/output/$dir_name -type f -name "*.html" -exec sed -i \
@@ -233,6 +238,9 @@ function _post_process_output {
                 -e s/README.html\#/index.html\#/g \
             {} + 
 
+        # todo, test if we can instead of syncing, kill all the README.html
+        # files and still get the speed/partial build we want. makes the
+        # production case cleaner
 		for readme_file_name in `find build/output/${dir_name} -name *README.html -type f`
 		do
 			rsync -a ${readme_file_name} $(dirname ${readme_file_name})/index.html
@@ -261,15 +269,20 @@ function _post_clean_for_prod {
 
     find build/output/ -name "README.html" -type f -exec rm {} +
 
-    for html_dir in `find build/output -name "html" -type d`
-    do
-        # so ugly but the mv preserves the hidden file .buildinfo
-        pushd $html_dir
-            mkdir ../temp
-            mv * ../temp
-            rm -r ../temp
-        popd
-    done
+    cp build/output/html/.buildinfo build/output/.
+
+    find build/output -name "html" -type d -exec rm -r {} +
+
+#    for html_dir in `find build/output -name "html" -type d` exec rm -r {} +
+#    do
+#        rm -r $html_dir
+##        # so ugly but the mv preserves the hidden file .buildinfo
+##        pushd $html_dir
+##            mkdir ../temp
+##            mv * ../temp
+##            rm -r ../temp
+##        popd
+#    done
 }
 
 #
@@ -343,7 +356,7 @@ function _zip_src_code {
         local existing_output_zip=$(find build/output/$dir_name -name ${zip_file_name} -type f)
 
         # zipping the src code is time consuming, let's skip it unless we
-        # detect updated files (using the time-stamp of the last updated
+        # detect updated files (using the newer than -nt comparator) of the last updated
         # file in the src dir
         if [[ $src_zip_latest_file -nt $existing_output_zip ]]
         then
