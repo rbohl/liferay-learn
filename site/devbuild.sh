@@ -8,7 +8,8 @@ set -eou pipefail
 # arguments). 
 # 
 # There are several utility scripts run here, to set up the build environment.
-# Afterward, the site build function, build_the_site, is called.
+# Afterward, the site build function, build_the_site, is called with both
+# arguments passed.
 #
 function main {
 
@@ -34,11 +35,12 @@ function main {
 # testing, or build all products and versions for production
 # (dangerous: includes a git clean -dfx of the liferay-learn/docs folder).
 # 
-# This product-parsing logic and any loops over the build directories are
-# defined depending on the build level, but several functions hold the actual
-# commands that accomplish the build. These functions, called from within
-# build_the_site, are treated like private methods and fields, and are in
-# alphabetical order at the end of the script, prepended with a _ character.
+# Product-parsing logic (via case statements) and some loops over the build
+# directories (for multi-product builds) are defined depending on the build
+# level, but several functions hold the actual commands that accomplish the
+# build. These functions, called from within build_the_site, are treated like
+# private Java methods and fields, and are in alphabetical order at the end of
+# the script, prepended with a _ character.
 #
 function build_the_site {
 
@@ -90,7 +92,6 @@ function build_the_site {
             done
             for dir_name in `find build/input -maxdepth 1 -mindepth 1 -printf "%f\n" -type d`
             do
-                echo "Currently generating output for $dir_name"
                 _generate_static_html_output
                 _post_process_output
                 _zip_src_code
@@ -208,29 +209,24 @@ function _generate_static_html_output {
 #
 function _post_process_homepage {
     
-    # todo, test whether the
     echo "Moving the homepage contents up a dir"
     rsync -a build/output/homepage/* build/output
 }
    
 #
-# After sphinx-build, we want to reorganize some things in the site. For
-# instance, we don't want the docs to be underneath a /html/ doler, because
+# After sphinx-build, we want to reorganize some things in the built site. For
+# instance, we don't want the docs to be underneath a /html/ folder, because
 # this will translate to a URL. We're only serving html, so we get rid of this.
 #
 # In addition, Sphinx won't process some RST syntax in our admonitions, so
-# various sed substitutions are reuqired to make sure links work inside
+# various sed substitutions are required to make sure links work inside
 # admonitions.
 #
 function _post_process_output {
     echo "Done building, processing output for $dir_name"
 
-        # todo, test whether we need this for speed. can we actaully do a mv
-        # and still get a partial build? would make the production case cleaner
-        # if so
 		rsync -a build/output/${dir_name}/html/. build/output/${dir_name}
 
-        # sphinx-build won't do this for us inside admonitions
         find build/output/$dir_name -type f -name "*.html" -exec sed -i \
                 -e s/.md\"/.html\"/g \
                 -e s/.md\#/.html\#/g \
@@ -238,32 +234,26 @@ function _post_process_output {
                 -e s/README.html\#/index.html\#/g \
             {} + 
 
-        # todo, test if we can instead of syncing, kill all the README.html
-        # files and still get the speed/partial build we want. makes the
-        # production case cleaner
 		for readme_file_name in `find build/output/${dir_name} -name *README.html -type f`
 		do
 			rsync -a ${readme_file_name} $(dirname ${readme_file_name})/index.html
 		done
 
-        # could this be subsumed by the find we're already doing above? like
-        # add "searchindex.js" to the find pattern? Or are there more than
-        # README.html refs to replace in the search indexes?
 		sed -i 's/README"/index"/g' build/output/${dir_name}/searchindex.js
 }
 
 #
 # Our partial build support wants speed above all else, so it leaves our
-# build/ouput directory in a production unfriendly state. This function cleans
+# build/output directory in a production unfriendly state. This function cleans
 # it up, by doing three things:
-#   1.  Delete all README.html files thoughout the output folder.
+#   1.  Delete all README.html files throughout the output folder.
 #   2.  Delete the build/output/homepage folder
-#   3.  For evey "html" folder in the output folder, leave only the hidden
+#   3.  For every "html" folder in the output folder, leave only the hidden
 #   .buildinfo file behind. All other contents are deleted.
 #
 function _post_clean_for_prod {
 
-    echo "Deleting all README.html files, deleting build/output/homepage, and cleaning the build/output/*/html directories so they contain only a .buildinfo file" 
+    echo "Cleaning up for production" 
 
     rm -r build/output/homepage
 
@@ -273,16 +263,6 @@ function _post_clean_for_prod {
 
     find build/output -name "html" -type d -exec rm -r {} +
 
-#    for html_dir in `find build/output -name "html" -type d` exec rm -r {} +
-#    do
-#        rm -r $html_dir
-##        # so ugly but the mv preserves the hidden file .buildinfo
-##        pushd $html_dir
-##            mkdir ../temp
-##            mv * ../temp
-##            rm -r ../temp
-##        popd
-#    done
 }
 
 #
@@ -316,7 +296,7 @@ function _set_build_data {
 
 #
 # These scripts can update the source code files in any of the products. We are
-# not curently calling these scripts for single-product builds, only for prod
+# not currently calling these scripts for single-product builds, only for prod
 # and all. This logic can be changed in the build_the_site function.
 #
 function _util_scripts {
