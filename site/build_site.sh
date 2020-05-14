@@ -17,15 +17,19 @@ function main {
 	# sudo dnf install python3-sphinx
 	#
 
-	python3 -m venv venv
+    if [[ ${1} == "prod" ]]; then
+        rm -fr venv
+    fi
 
-	source venv/bin/activate
+    python3 -m venv venv
 
-	check_utils pip3 sphinx-build zip
+    source venv/bin/activate
 
-	pip_install recommonmark sphinx-intl sphinx-copybutton sphinx-markdown-tables sphinx-notfound-page
+    check_utils pip3 zip
 
-    build_the_site $1 $2
+    pip_install sphinx recommonmark sphinx-intl sphinx-copybutton sphinx-markdown-tables sphinx-notfound-page
+
+    build_the_site ${1} ${2}
 
 }
 
@@ -323,9 +327,6 @@ function _zip_src_code {
         # we need the name of the .zip dir to use as the zip file's name
         local zip_file_name=$(basename ${input_zip_dir_name})
 
-	check_utils pip3 zip
-
-	pip_install sphinx recommonmark sphinx-intl sphinx-copybutton sphinx-markdown-tables sphinx-notfound-page
         # search the liferay-learn/docs folder for a directory matching the
         # name from the input directory. we need it for checking its
         # file's timestamps
