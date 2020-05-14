@@ -7,50 +7,31 @@ set -eou pipefail
 # where we call main $1 $2 (accepting 2 positional parameters as command line
 # arguments). 
 # 
-# There are several utility scripts run here, to set up the build environment.
-# Afterward, the site build function, build_the_site, is called with both
-# arguments passed.
-#
-function main {
-
-	#
-	# sudo dnf install python3-sphinx
-	#
-
-    if [[ ${1} == "prod" ]]; then
-        rm -fr venv
-    fi
-
-    python3 -m venv venv
-
-    source venv/bin/activate
-
-    check_utils pip3 zip
-
-    pip_install sphinx recommonmark sphinx-intl sphinx-copybutton sphinx-markdown-tables sphinx-notfound-page
-
-    build_the_site ${1} ${2}
-
-}
-
-#
 # This is where the logic for each build level is defined: build a single
 # product and version, build all products and versions for development and
-# testing, or build all products and versions for production
-# (dangerous: includes a git clean -dfx of the liferay-learn/docs folder).
+# testing, or build all products and versions for production (dangerous:
+# includes a git clean -dfx of the liferay-learn/docs folder, and removes
+# entirely the /build and /venv folders).
 # 
 # Product-parsing logic (via case statements) and some loops over the build
-# directories (for multi-product builds) are defined depending on the build
-# level, but several functions hold the actual commands that accomplish the
-# build. These functions, called from within build_the_site, are treated like
-# private Java methods and fields, and are in alphabetical order at the end of
-# the script, prepended with a _ character.
+# directories (for multi-product builds) determine the build behavior, but
+# numerous additional functions hold the actual commands that accomplish the
+# build. These functions, called from within main, are treated like private
+# Java methods and fields, and are in alphabetical order at the end of the
+# script, prepended with a _ character.
 #
-function build_the_site {
+function main {
 
     _set_build_data $1 $2
     # deal with each argument we want to accept
     case $product_name in
+        "prod")
+            _pre_clean_for_prod
+        ;;&
+        "all"|"commerce"|"dxp"|"dxp-cloud"|"prod")
+            # should we check for the venv and skip this? hmm, we'd at least need to activate the venv always
+            _setup_env
+        ;;&
         "commerce")      
             if [[ $version_name == "default" ]]; then
               version_name=${COMMERCE_DEFLT_VER}
@@ -80,9 +61,6 @@ function build_the_site {
             _zip_src_code
             _post_process_homepage
         ;;
-        "prod")
-            _pre_clean_for_prod
-            ;&
         "all"|"prod")
             # do the common stuff for prod and all
             echo "Building all products and versions"
@@ -122,34 +100,6 @@ function build_the_site {
 #
 # bashDoc
 #
-function check_utils {
-
-	#
-	# https://stackoverflow.com/a/677212
-	#
-
-	for util in "${@}"
-	do
-		command -v ${util} >/dev/null 2>&1 || { echo >&2 "The utility ${util} is not installed."; exit 1; }
-	done
-}
-
-#
-# bashDoc
-#
-function pip_install {
-	for package_name in "$@"
-	do
-		if [[ -z `pip3 list --disable-pip-version-check --format=columns | grep ${package_name}` ]]
-		then
-			pip3 install --disable-pip-version-check ${package_name}
-		fi
-	done
-}
-
-#
-# bashDoc
-#
 function upload_to_server {
 
 	#
@@ -166,11 +116,28 @@ function upload_to_server {
 function _pre_clean_for_prod {
 
     echo "Cleaning in preparation for production build"
-    echo "Removing the /build directory, cleaning the git index"
+    echo "Removing the /build and /venv directories, git cleaning the docs src folder"
+
+    rm -fr venv
     rm -fr build
     pushd $(git rev-parse --show-toplevel)/docs
         git clean -dfx .
     popd
+}
+
+#
+# bashDoc
+#
+function _check_utils {
+
+	#
+	# https://stackoverflow.com/a/677212
+	#
+
+	for util in "${@}"
+	do
+		command -v ${util} >/dev/null 2>&1 || { echo >&2 "The utility ${util} is not installed."; exit 1; }
+	done
 }
 
 #
@@ -198,7 +165,7 @@ function _generate_input {
 #
 # Call sphinx-build to generate the static HTML.
 #
-# Called from the build_the_site function, after generating input and
+# Called from the main function, after generating input and
 # pre-processing things.
 #
 function _generate_static_html_output {
@@ -247,6 +214,19 @@ function _post_process_output {
 }
 
 #
+# bashDoc
+#
+function _pip_install {
+	for package_name in "$@"
+	do
+		if [[ -z `pip3 list --disable-pip-version-check --format=columns | grep ${package_name}` ]]
+		then
+			pip3 install --disable-pip-version-check ${package_name}
+		fi
+	done
+}
+
+#
 # Our partial build support wants speed above all else, so it leaves our
 # build/output directory in a production unfriendly state. This function cleans
 # it up, by doing three things:
@@ -283,9 +263,9 @@ function _pre_process_input {
 #
 # Parse the command line arguments. If no arguments are passed, default values
 # are set: "all" for product name and "default" for product version. If a
-# single product is passed without a version, the build_the_site function uses
-# the DEFLT_VER variables here to know what it should build. Currently, these
-# are the only versions in the liferay-learn/docs folder.
+# single product is passed without a version, the main function uses the
+# DEFLT_VER variables here to know what it should build. Currently, these are
+# the only versions in the liferay-learn/docs folder.
 #
 function _set_build_data {
     echo "Processing your arguments to understand what to build: All, Prod, Commerce 2.x, DXP 7.x, or DXP Cloud Latest"
@@ -299,9 +279,30 @@ function _set_build_data {
 }
 
 #
+# Initializes a python virtual environment, activates it, and checks
+# (_check_utils) for the existence of pip3 and zip. Installs (_pip_install) the
+# necessary sphinx packages.
+#
+function _setup_env {
+
+	#
+	# sudo dnf install python3-sphinx
+	#
+
+    python3 -m venv venv
+
+    source venv/bin/activate
+
+    _check_utils pip3 zip
+
+    _pip_install sphinx recommonmark sphinx-intl sphinx-copybutton sphinx-markdown-tables sphinx-notfound-page
+
+}
+
+#
 # These scripts can update the source code files in any of the products. We are
 # not currently calling these scripts for single-product builds, only for prod
-# and all. This logic can be changed in the build_the_site function.
+# and all. This logic can be changed in the main function.
 #
 function _util_scripts {
     echo "Calling some utility scripts"
