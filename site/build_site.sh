@@ -66,13 +66,13 @@ function main {
             echo "Building all products and versions"
             _pre_process_input
             _util_scripts
-            for product_name in `find ../docs -maxdepth 1 -mindepth 1 -printf "%f\n" -type d`; do
-                for version_name in `find ../docs/${product_name} -maxdepth 1 -mindepth 1 -printf "%f\n" -type d`; do
+            for product_name in `$fnd ../docs -maxdepth 1 -mindepth 1 -printf "%f\n" -type d`; do
+                for version_name in `$fnd ../docs/${product_name} -maxdepth 1 -mindepth 1 -printf "%f\n" -type d`; do
                     echo "Currently generating input for $product_name $version_name"
                     _generate_input
                 done
             done
-            for dir_name in `find build/input -maxdepth 1 -mindepth 1 -printf "%f\n" -type d`
+            for dir_name in `$fnd build/input -maxdepth 1 -mindepth 1 -printf "%f\n" -type d`
             do
                 _generate_static_html_output
                 _post_process_output
@@ -198,19 +198,19 @@ function _post_process_output {
 
 		rsync -a build/output/${dir_name}/html/. build/output/${dir_name}
 
-        find build/output/$dir_name -type f -name "*.html" -exec sed -i \
+        $fnd build/output/$dir_name -type f -name "*.html" -exec $sd -i \
                 -e s/.md\"/.html\"/g \
                 -e s/.md\#/.html\#/g \
                 -e s/README.html\"/index.html\"/g \
                 -e s/README.html\#/index.html\#/g \
             {} + 
 
-		for readme_file_name in `find build/output/${dir_name} -name *README.html -type f`
+		for readme_file_name in `$fnd build/output/${dir_name} -name *README.html -type f`
 		do
 			rsync -a ${readme_file_name} $(dirname ${readme_file_name})/index.html
 		done
 
-		sed -i 's/README"/index"/g' build/output/${dir_name}/searchindex.js
+		$sd -i 's/README"/index"/g' build/output/${dir_name}/searchindex.js
 }
 
 #
@@ -241,11 +241,11 @@ function _post_clean_for_prod {
 
     rm -r build/output/homepage
 
-    find build/output/ -name "README.html" -type f -exec rm {} +
+    $fnd build/output/ -name "README.html" -type f -exec rm {} +
 
     cp build/output/html/.buildinfo build/output/.
 
-    find build/output -name "html" -type d -exec rm -r {} +
+    $fnd build/output -name "html" -type d -exec rm -r {} +
 
 }
 
@@ -276,6 +276,14 @@ function _set_build_data {
     DXP_DEFLT_VER="7.x"
     DXP_CLOUD_DEFLT_VER="latest"
 
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        fnd="gfind"
+        sd="gsed"
+    else
+        fnd="find"
+        sd="sed"
+    fi
+
 }
 
 #
@@ -289,9 +297,17 @@ function _setup_env {
 	# sudo dnf install python3-sphinx
 	#
 
-    python3 -m venv venv
+    if hash python3 2>/dev/null; then
+        python3 -m venv venv
+    else
+        python -m venv ${PWD}/venv
+    fi
 
-    source venv/bin/activate
+    if [[ -d ${PWD}/venv/bin ]]; then
+        source venv/bin/activate
+    else
+        source ${PWD}/venv/scripts/activate
+    fi
 
     _check_utils pip3 zip
 
@@ -322,7 +338,7 @@ function _util_scripts {
 function _zip_src_code {
 
     echo "Done building HTML, now looking for new or updated source code for $dir_name"
-    for input_zip_dir_name in `find build/input/${dir_name} -name *.zip -type d` 
+    for input_zip_dir_name in `$fnd build/input/${dir_name} -name *.zip -type d` 
     do
 
         # we need the name of the .zip dir to use as the zip file's name
@@ -331,14 +347,14 @@ function _zip_src_code {
         # search the liferay-learn/docs folder for a directory matching the
         # name from the input directory. we need it for checking its
         # file's timestamps
-        local src_zip_dir=$(find ../docs/ -name ${zip_file_name} -type d)
+        local src_zip_dir=$($fnd ../docs/ -name ${zip_file_name} -type d)
 
         # get the most recently updated file from the zip directory in 
         # the matching docs zip directory
-        local src_zip_latest_file=$(find $src_zip_dir -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" ")
+        local src_zip_latest_file=$($fnd $src_zip_dir -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" ")
 
         # get the matching existing zip file from the output dir
-        local existing_output_zip=$(find build/output/$dir_name -name ${zip_file_name} -type f)
+        local existing_output_zip=$($fnd build/output/$dir_name -name ${zip_file_name} -type f)
 
         # zipping the src code is time consuming, let's skip it unless we
         # detect updated files (using the newer than -nt comparator) of the last updated
