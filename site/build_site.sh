@@ -2,7 +2,7 @@
 
 set -eou pipefail
 
-readonly SCRIPT_DIR_NAME=$(dirname "$0")
+readonly CURRENT_DIR_NAME=$(dirname "$0")
 
 function check_utils {
 
@@ -137,7 +137,7 @@ function get_product_version_language_dir_name {
 }
 
 function main {
-	pushd "${SCRIPT_DIR_NAME}" || exit 1
+	pushd "${CURRENT_DIR_NAME}" || exit 1
 
 	configure_env
 
