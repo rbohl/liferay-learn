@@ -131,15 +131,15 @@ function generate_static_html {
 }
 
 function get_product_version_language_dir_name {
-	local product_version_language_dir_name=$(echo "${docs_dir_name}" | cut -f3- -d'/')
+	local language=$(echo "${docs_dir_name}" | cut -f5 -d'/')
+	local product=$(echo "${docs_dir_name}" | cut -f3 -d'/')
+	local version=$(echo "${docs_dir_name}" | cut -f4 -d'/')
 
-	echo ${product_version_language_dir_name}
+	echo ${product}/${version}/${language}
 }
 
 function main {
 	pushd "${CURRENT_DIR_NAME}" || exit 1
-
-	configure_env
 
 	set_build_type $@
 
@@ -147,6 +147,8 @@ function main {
 	then
 		pre_clean_for_prod
 	fi
+
+	configure_env
 
 	generate_sphinx_input
 
@@ -168,8 +170,10 @@ function pip_install {
 function pre_clean_for_prod {
 	rm -fr venv
 
-	pushd $(git rev-parse --show-toplevel)/docs
-		git clean -dfx .
+	pushd ../docs
+
+	git clean -dfx .
+
 	popd
 }
 
