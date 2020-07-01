@@ -36,8 +36,6 @@ function generate_sphinx_input {
 
 	cd ../docs
 
-	git clean -dfx .
-
 	./update_examples.sh && ./update_permissions.sh
 
 	cd ../site
@@ -134,7 +132,7 @@ function generate_static_html {
 
 function get_product_version_language_dir_name {
 	local product_version_language_dir_name=$(echo "${docs_dir_name}" | cut -f3- -d'/')
- 
+
 	echo ${product_version_language_dir_name}
 }
 
@@ -144,6 +142,11 @@ function main {
 	configure_env
 
 	set_build_type $@
+
+	if [[ ${build_type} == "prod" ]]
+	then
+		pre_clean_for_prod
+	fi
 
 	generate_sphinx_input
 
@@ -162,6 +165,14 @@ function pip_install {
 	done
 }
 
+function pre_clean_for_prod {
+	rm -fr venv
+
+	pushd $(git rev-parse --show-toplevel)/docs
+		git clean -dfx .
+	popd
+}
+
 function set_build_type {
 	if [[ $# -eq 0 ]]
 	then
@@ -175,13 +186,14 @@ function set_build_type {
 		if [[ ${build_type} != "prod" ]]
 		then
 			echo "Invalid Argument: Pass no arguments to build for dev, or pass \"prod\" to build for production."
-			exit
+			exit 1
 		fi
 	fi
+
 	if [[ $# -gt 1 ]]
 	then
 		echo "Too Many Arguments: Pass no arguments to build for dev, or pass \"prod\" to build for production."
-		exit
+		exit 1
 	fi
 }
 
