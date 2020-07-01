@@ -133,11 +133,9 @@ function generate_static_html {
 }
 
 function get_product_version_language_dir_name {
-	local language=$(echo "${docs_dir_name}" | cut -f5 -d'/')
-	local product=$(echo "${docs_dir_name}" | cut -f3 -d'/')
-	local version=$(echo "${docs_dir_name}" | cut -f4 -d'/')
-
-	echo ${product}/${version}/${language}
+	local product_version_language_dir_name=$(echo "${docs_dir_name}" | cut -f3- -d'/')
+ 
+	echo ${product_version_language_dir_name}
 }
 
 function main {
