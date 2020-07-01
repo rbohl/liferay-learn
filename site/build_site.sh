@@ -128,6 +128,8 @@ function main {
 
 	setup_env
 
+	set_build_type $@
+
 	generate_sphinx_input
 
 	generate_static_html
@@ -143,6 +145,29 @@ function pip_install {
 			pip3 install --disable-pip-version-check ${package_name}
 		fi
 	done
+}
+
+function set_build_type {
+	if [[ $# -eq 0 ]]
+	then
+		build_type="dev"
+	fi
+
+	if [[ $# -eq 1 ]]
+	then
+		build_type=$1
+
+		if [[ ${build_type} != "prod" ]]
+		then
+			echo "Invalid Argument: Pass no arguments to build for dev, or pass \"prod\" to build for production."
+			exit
+		fi
+	fi
+	if [[ $# -gt 1 ]]
+	then
+		echo "Too Many Arguments: Pass no arguments to build for dev, or pass \"prod\" to build for production."
+		exit
+	fi
 }
 
 function setup_env {
