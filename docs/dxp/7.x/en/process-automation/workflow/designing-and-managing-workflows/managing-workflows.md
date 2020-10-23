@@ -87,5 +87,5 @@ In the _System Settings_, you can enable or disable permissions for Regular Admi
 
 ## Additional Information
 
-* [Introduction to Crafting XML Workflow Definitions](../developer-guide/crafting-xml-workflow-definitions.md)
-* [Workflow Designer (Subscription)](./workflow-designer-overview.md)
+* [Crafting XML Workflow Definitions](../developer-guide/crafting-xml-workflow-definitions.md)
+* [Workflow Designer Overview (Subscription)](./workflow-designer-overview.md)
