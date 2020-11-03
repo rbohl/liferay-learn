@@ -12,6 +12,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -19,9 +20,7 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import java.io.Serializable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,13 +29,10 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 @Component(
-	immediate = true,
-	property = "commerce.product.data.source.name=" + M5X7CPDataSource.NAME,
+	property = "commerce.product.data.source.name=m5x7",
 	service = CPDataSource.class
 )
 public class M5X7CPDataSource implements CPDataSource {
-
-	public static final String NAME = "Example";
 
 	@Override
 	public String getLabel(Locale locale) {
@@ -49,7 +45,7 @@ public class M5X7CPDataSource implements CPDataSource {
 
 	@Override
 	public String getName() {
-		return NAME;
+		return "m5x7-commerce-product-data-source";
 	}
 
 	@Override
@@ -65,23 +61,22 @@ public class M5X7CPDataSource implements CPDataSource {
 			return new CPDataSourceResult(new ArrayList<>(), 0);
 		}
 
-		SearchContext searchContext = new SearchContext();
-
-		Map<String, Serializable> attributes = new HashMap<>();
-
-		attributes.put(Field.STATUS, WorkflowConstants.STATUS_APPROVED);
-		attributes.put(
-			"excludedCPDefinitionId", cpCatalogEntry.getCPDefinitionId());
-
-		searchContext.setAttributes(attributes);
-
-		searchContext.setCompanyId(_portal.getCompanyId(httpServletRequest));
-
-		searchContext.setKeywords(
-			StringPool.STAR + _getLastWordOfName(cpCatalogEntry));
-
 		return _cpDefinitionHelper.search(
-			_portal.getScopeGroupId(httpServletRequest), searchContext,
+			_portal.getScopeGroupId(httpServletRequest),
+			new SearchContext() {
+				{
+					setAttributes(
+						HashMapBuilder.<String, Serializable>put(
+							Field.STATUS, WorkflowConstants.STATUS_APPROVED
+						).put(
+							"excludedCPDefinitionId",
+							cpCatalogEntry.getCPDefinitionId()
+						).build());
+					setCompanyId(_portal.getCompanyId(httpServletRequest));
+					setKeywords(
+						StringPool.STAR + _getLastWordOfName(cpCatalogEntry));
+				}
+			},
 			new CPQuery(), start, end);
 	}
 
@@ -91,11 +86,11 @@ public class M5X7CPDataSource implements CPDataSource {
 		CPDefinition cpDefinition = _cpDefinitionLocalService.getCPDefinition(
 			cpCatalogEntry.getCPDefinitionId());
 
-		String cpDefinitionName = cpDefinition.getName();
+		String name = cpDefinition.getName();
 
-		String[] nameTokens = cpDefinitionName.split(" ");
+		String[] nameParts = name.split(" ");
 
-		return nameTokens[nameTokens.length - 1];
+		return nameParts[nameParts.length - 1];
 	}
 
 	@Reference

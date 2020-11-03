@@ -2,7 +2,9 @@ Search Facets
 =============
 
 .. toctree::
-   :maxdepth: 1
+
+   :maxdepth: 2
+
 
    search-facets/facets.md
    search-facets/site-facet.md
@@ -12,6 +14,12 @@ Search Facets
    search-facets/user-facet.md
    search-facets/modified-facet.md
    search-facets/custom-facet.md
-   
-.. include:: /using-search/search-pages-and-widgets/search-facets/README.rst
-   :start-line: 2
+
+-  :doc:`/using-search/search-pages-and-widgets/search-facets/facets`
+-  :doc:`/using-search/search-pages-and-widgets/search-facets/site-facet`
+-  :doc:`/using-search/search-pages-and-widgets/search-facets/type-facet`
+-  :doc:`/using-search/search-pages-and-widgets/search-facets/tag-and-category-facet`
+-  :doc:`/using-search/search-pages-and-widgets/search-facets/folder-facet`
+-  :doc:`/using-search/search-pages-and-widgets/search-facets/user-facet`
+-  :doc:`/using-search/search-pages-and-widgets/search-facets/modified-facet`
+-  :doc:`/using-search/search-pages-and-widgets/search-facets/custom-facet`

@@ -15,20 +15,17 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 @Component(
-	immediate = true,
 	property = {
-		"commerce.checkout.step.name=" + N8N6CommerceCheckoutStep.NAME,
+		"commerce.checkout.step.name=n8n6",
 		"commerce.checkout.step.order:Integer=21"
 	},
 	service = CommerceCheckoutStep.class
 )
 public class N8N6CommerceCheckoutStep extends BaseCommerceCheckoutStep {
 
-	public static final String NAME = "example-step";
-
 	@Override
 	public String getName() {
-		return NAME;
+		return "n8n6-commerce-checkout-step";
 	}
 
 	@Override
