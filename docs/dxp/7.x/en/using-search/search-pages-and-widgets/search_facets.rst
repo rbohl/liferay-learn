@@ -5,7 +5,6 @@ Search Facets
 
    :maxdepth: 2
 
-
    search-facets/facets.md
    search-facets/site-facet.md
    search-facets/type-facet.md
