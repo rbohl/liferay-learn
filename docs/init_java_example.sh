@@ -25,7 +25,11 @@ function init_project {
 
 		echo -ne "${build_gradle_contents}" > ${inner_project_dir_name}/build.gradle
 
-		local bnd_bnd_contents="Bundle-Name: Acme $(echo ${1} | tr [:lower:] [:upper:]) PTYPE\nBundle-SymbolicName: com.acme.${1}.ptype\nBundle-Version: 1.0.0"
+		local bundle_name="Bundle-Name: Acme $(echo ${1} | tr [:lower:] [:upper:]) PTYPE"
+		local bundle_symbolic_name="Bundle-SymbolicName: com.acme.${1}.ptype"
+		local bundle_version="Bundle-Version: 1.0.0"
+
+		local bnd_bnd_contents="${bundle_name}\n${bundle_symbolic_name}\n${bundle_version}"
 
 		echo -ne "${bnd_bnd_contents}" > ${inner_project_dir_name}/bnd.bnd
 	fi
@@ -34,11 +38,11 @@ function init_project {
 function log_next_steps {
 	echo ""
 	echo "--------------"
-	echo "NEXT: Make sure you replace \"ptype\" with a project type (usually api, impl, or web) in this directory name:"
+	echo "NEXT: Replace \"ptype\" with a project type (usually api, impl, or web) in this directory name:"
 	echo "$(find ${ZIP_DIR_NAME} -name "*ptype*" -type d)"
 	echo ""
 	echo "--------------"
-	echo "NEXT: Make sure you replace \"ptype\" with a project type (usually api, impl, or web) in these files' contents:"
+	echo "NEXT: Replace \"ptype\" with a project type (usually api, impl, or web) in these files' contents:"
 	echo "$(grep -ir "ptype" ${ZIP_DIR_NAME})"
 }
 
