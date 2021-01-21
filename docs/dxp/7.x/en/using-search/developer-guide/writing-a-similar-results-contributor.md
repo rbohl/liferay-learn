@@ -35,10 +35,14 @@ To get an example `SimilarResultsContributor` up and running on your instance of
     ```
 
     ```bash
-    unzip liferay-r1s1.zip
+    unzip liferay-r1s1.zip -d liferay-r1s1
     ```
 
 1. From the module root, build and deploy.
+
+    ```bash
+    cd liferay-r1s1
+    ```
 
     ```bash
     ./gradlew deploy -Ddeploy.docker.container.id=$(docker ps -lq)
