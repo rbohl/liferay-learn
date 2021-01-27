@@ -176,19 +176,20 @@ function generate_static_html {
 		# Make ZIP files.
 		#
 
-		for zip_dir_name in $(find build/input/"${product_version_language_dir_name}" -name *.zip -type d)
+		for zip_dir in $(find build/input/"${product_version_language_dir_name}" -name *.zip -type d)
 		do
-			pushd ${zip_dir_name}/../
+			local tutorial_resources_dir=$(dirname "${zip_dir}")
 
-			local zip_file_name=$(basename "${zip_dir_name}")
+			pushd "${tutorial_resources_dir}"
 
-			local example_dir_name=$(echo ${zip_file_name} | cut -d'.' -f1)
+			local zip_file_name=$(basename "${zip_dir}")
+			local example_dir_name=$(echo "${zip_file_name}" | cut -d'.' -f1)
 
-			mv ${zip_file_name} ${example_dir_name}
+			mv "${zip_file_name}" "${example_dir_name}"
 
-			zip -r ${zip_file_name} ${example_dir_name}
+			zip -r "${zip_file_name}" "${example_dir_name}"
 
-			local output_dir_name=$(dirname "${zip_dir_name}")
+			local output_dir_name=$(dirname "${zip_dir}")
 
 			if [[ "${output_dir_name}" == *"/resources" ]]
 			then
@@ -202,7 +203,7 @@ function generate_static_html {
 
 			mkdir -p "${output_dir_name}"
 
-			mv "${zip_dir_name}" "${output_dir_name}"
+			mv "${tutorial_resources_dir}"/"${zip_file_name}" "${output_dir_name}"
 		done
 	done
 
