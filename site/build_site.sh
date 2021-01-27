@@ -184,16 +184,9 @@ function generate_static_html {
 
 			local example_dir_name=$(echo ${zip_file_name} | cut -d'.' -f1)
 
-			mkdir ${example_dir_name}
+			mv ${zip_file_name} ${example_dir_name}
 
-			mv ${zip_file_name}/* ${example_dir_name}
-
-			if [ -d ${zip_file_name}/.gradle ]
-			then
-				mv ${zip_file_name}/.gradle ${example_dir_name}
-			fi
-
-			zip -r ${zip_file_name}/${zip_file_name} ${example_dir_name}
+			zip -r ${zip_file_name} ${example_dir_name}
 
 			local output_dir_name=$(dirname "${zip_dir_name}")
 
@@ -209,7 +202,7 @@ function generate_static_html {
 
 			mkdir -p "${output_dir_name}"
 
-			mv "${zip_dir_name}"/"${zip_file_name}" "${output_dir_name}"
+			mv "${zip_dir_name}" "${output_dir_name}"
 		done
 	done
 
