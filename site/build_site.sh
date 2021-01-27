@@ -181,17 +181,14 @@ function generate_static_html {
 			pushd ${zip_dir_name}/../
 
 			local zip_file_name=$(basename "${zip_dir_name}")
-			local zip_file_parent_dir_name=$(echo ${zip_file_name} | cut -d'.' -f1)
 
-			mv ${zip_file_name} ${zip_file_parent_dir_name}
+			local example_dir_name=$(echo ${zip_file_name} | cut -d'.' -f1)
 
-			mkdir ${zip_file_name}
+			mkdir ${example_dir_name}
 
-			mv ${zip_file_parent_dir_name} ${zip_file_name}
+			mv ${zip_file_name}/* ${zip_file_name}/.gradle ${example_dir_name}
 
-			pushd ${zip_file_name}
-
-			zip -r ${zip_file_name} .
+			zip -r ${zip_file_name}/${zip_file_name} ${example_dir_name}
 
 			local output_dir_name=$(dirname "${zip_dir_name}")
 
@@ -203,7 +200,6 @@ function generate_static_html {
 			output_dir_name=$(dirname "${output_dir_name}")
 			output_dir_name=${output_dir_name/input/output}
 
-			popd
 			popd
 
 			mkdir -p "${output_dir_name}"
