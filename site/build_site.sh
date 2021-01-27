@@ -186,7 +186,12 @@ function generate_static_html {
 
 			mkdir ${example_dir_name}
 
-			mv ${zip_file_name}/* ${zip_file_name}/.gradle ${example_dir_name}
+			mv ${zip_file_name}/* ${example_dir_name}
+
+			if [ -d ${zip_file_name}/.gradle ]
+			then
+				mv ${zip_file_name}/.gradle ${example_dir_name}
+			fi
 
 			zip -r ${zip_file_name}/${zip_file_name} ${example_dir_name}
 
