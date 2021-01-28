@@ -1,3 +1,4 @@
 /build
+/sandbox
 /venv
 **/*/node_modules/

@@ -84,7 +84,7 @@ function configure_env {
 }
 
 function generate_sphinx_input {
-	rm -fr build
+	rm -fr build sandbox
 
 	if [ "${1}" == "prod" ]
 	then
@@ -128,6 +128,9 @@ function generate_sphinx_input {
 		sed -i "s/${LIFERAY_LEARN_PORTAL_DOCKER_IMAGE_TOKEN}/${LIFERAY_LEARN_PORTAL_DOCKER_IMAGE_VALUE}/g" "${md_file_name}"
 		sed -i "s/${LIFERAY_LEARN_PORTAL_GIT_TAG_TOKEN}/${LIFERAY_LEARN_PORTAL_GIT_TAG_VALUE}/g" "${md_file_name}"
 	done
+
+	mkdir sandbox/
+	cp -R build/input/ sandbox/
 }
 
 function generate_static_html {
