@@ -10,7 +10,7 @@ When a workflow is activated for a particular asset, the _Publish_ button is rep
 
 The out-of-the-box workflow process is called _Single Approver_; that means one person is required to review and approve submissions before publication.
 
-To learn more, see the [Activating Workflow](./using-workflow./using-workflows/activating-workflow.md) and [sending assets through review](./reviewing-assets.md) articles.
+To learn more, see the [Activating Workflow](./using-workflows/activating-workflow.md) and [sending assets through review](./reviewing-assets.md) articles.
 
 ## Building a Workflow
 
@@ -18,10 +18,10 @@ Workflow allows users to build more complex workflows that can have multiple rev
 
 * [Crafting Review Processes in XML](https://help.liferay.com/hc/articles/360029147791-Introduction-to-Crafting-XML-Workflow-Definitions)
 * [Visually Designing Review Processes](https://help.liferay.com/hc/articles/360028821892-Workflow-Designer) (Subscriber)
-* [Uploading Workflow Definitions](./designing-and-managing-workflow./designing-and-managing-workflows/managing-workflows.md#uploading-a-new-workflow-definitions)
-* [Managing Workflow Definitions](./designing-and-managing-workflow./designing-and-managing-workflows/managing-workflows.md)
+* [Uploading Workflow Definitions](./designing-and-managing-workflows/managing-workflows.md#uploading-a-new-workflow-definitions)
+* [Managing Workflow Definitions](./designing-and-managing-workflows/managing-workflows.md)
 
-To start building your own workflows, see [Building Workflows](./designing-and-managing-workflow./designing-and-managing-workflows/building-workflows.md).
+To start building your own workflows, see [Building Workflows](./designing-and-managing-workflows/building-workflows.md).
 
 ### Using Workflow Metrics to Implement SLAs
 
@@ -40,6 +40,6 @@ See the [Using Workflow Metrics](./using-workflows/using-workflow-metrics.md) ar
 
 ## What's Next
 
-* [Activating Workflow](./using-workflow./using-workflows/activating-workflow.md)
-* [Managing Workflows](./designing-and-managing-workflow./designing-and-managing-workflows/managing-workflows.md)
-* [Building Workflows](./designing-and-managing-workflow./designing-and-managing-workflows/building-workflows.md)
+* [Activating Workflow](./using-workflows/activating-workflow.md)
+* [Managing Workflows](./designing-and-managing-workflows/managing-workflows.md)
+* [Building Workflows](./designing-and-managing-workflows/building-workflows.md)
