@@ -26,8 +26,8 @@ In order to set up a local environment for development with DXP Cloud, the follo
 
 ## Additional Information
 
-* [Configuring Your Github Repository](../getting-started/configuring-your-github-repository.md)
+* [Configuring Your Github Repository](./configuring-your-github-repository.md)
 * [Configuring Your Bitbucket Repository](./configuring-your-bitbucket-repository.md)
 * [Configuring Your GitLab Repository](./configuring-your-gitlab-repository.md)
 * [Overview of the DXP Cloud Deployment Workflow](../build-and-deploy/overview-of-the-dxp-cloud-deployment-workflow.md)
-* [Logging Into Your Liferay DXP Instance](../getting-started/logging-into-your-dxp-cloud-services.md)
+* [Logging Into Your Liferay DXP Instance](./logging-into-your-dxp-cloud-services.md)

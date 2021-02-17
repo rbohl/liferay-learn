@@ -85,6 +85,6 @@ To store sensitive variable values (such as login credentials), you can use Secr
 
 ## Additional Information
 
-* [Configuration via LCP.json](../reference/configuration-via-lcp-json.md)
+* [Configuration via LCP.json](./configuration-via-lcp-json.md)
 * [Managing Secure Environment Variables with Secrets](../infrastructure-and-operations/security/managing-secure-environment-variables-with-secrets.md)
 * [Overview of the DXP Cloud Deployment Workflow](../build-and-deploy/overview-of-the-dxp-cloud-deployment-workflow.md)
