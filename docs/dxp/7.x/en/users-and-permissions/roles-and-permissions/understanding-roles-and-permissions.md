@@ -57,7 +57,7 @@ Several User collections can be assigned to Regular Roles:
 
 ### Organization Roles
 
-Organization scoped Roles are called Organization Roles. Permissions for Organization Roles are defined at the global level and are applied to one specific [Organization](../../users-and-permissions/organizations/understanding-organizations.md). Users are added to Organizations individually and are assigned to Organization Roles individually.
+Organization scoped Roles are called Organization Roles. Permissions for Organization Roles are defined at the global level and are applied to one specific [Organization](../organizations/understanding-organizations.md). Users are added to Organizations individually and are assigned to Organization Roles individually.
 
 ### Site Roles
 
