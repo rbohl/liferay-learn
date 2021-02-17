@@ -60,7 +60,7 @@ This table compares some of the distinctions between a Content Page and a Widget
 
 ### Other Page Types
 
-There are several other page types that are available - each can help to satisfy particular use cases. See [Other Page Types](../understanding-pages/other-page-types.md) for more information.
+There are several other page types that are available - each can help to satisfy particular use cases. See [Other Page Types](./other-page-types.md) for more information.
 
 ## Global Page Templates
 

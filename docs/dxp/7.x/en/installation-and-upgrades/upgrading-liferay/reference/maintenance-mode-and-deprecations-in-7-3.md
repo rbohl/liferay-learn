@@ -44,7 +44,7 @@ Here are the features deprecated in 7.3:
 | Liferay Bookmarks | Archived | No direct replacement. |
 | Liferay Mobile Device Detection Lite | Archived | No direct replacement. |
 | Liferay Sync Connector and Sync Client | Marketplace and [downloads](https://web.liferay.com/downloads/liferay-sync) | No direct replacement. |
-| OpenAM / OpenSSO | Bundled | Deprecated in 7.2. Migrate to [SAML based authentication](../../installation-and-upgrades/securing-liferay/configuring-sso/authenticating-with-saml/single-sign-on-with-saml.md). |
+| OpenAM / OpenSSO | Bundled | Deprecated in 7.2. Migrate to [SAML based authentication](../../securing-liferay/configuring-sso/authenticating-with-saml/single-sign-on-with-saml.md). |
 | OpenID | Marketplace | Replaced by [OpenID Connect](../../securing-liferay/configuring-sso/other-ssos/using-openid-connect.md). Deprecated in 7.2. |
 | Project Template: project-templates-activator | Archived [in GitHub](https://github.com/liferay/liferay-blade-cli/tree/master/extensions) | No replacement. |
 | Project Template: project-templates-freemarker-portlet | Archived [in GitHub](https://github.com/liferay/liferay-blade-cli/tree/master/extensions) | No replacement. |
