@@ -26,7 +26,7 @@ If you're more comfortable with an installer, download the latest [Liferay Proje
 
 1. After the introduction, click *Next*.
 
-1. You can initialize a [Liferay Workspace](../../tooling/liferay-workspace.md) during the install. Liferay Workspace is an environment (a set of folders) on your system where you'll manage your Liferay projects. Set its location if you wish to initialize it now.
+1. You can initialize a [Liferay Workspace](../liferay-workspace.md) during the install. Liferay Workspace is an environment (a set of folders) on your system where you'll manage your Liferay projects. Set its location if you wish to initialize it now.
 
    ![Liferay Workspace is a set of folders on your file system where you manage Liferay projects.](./installing-and-updating-blade-cli/images/02.png)
 

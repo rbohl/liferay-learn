@@ -18,7 +18,7 @@ Navigate to the _Global Applications_ menu &rarr; _Commerce_. Administrators can
 * [Shipments](../orders-and-fulfillment/shipments/introduction-to-shipments.md)
 * [Bill of Materials](../managing-a-catalog/creating-and-managing-products/products/managing-boms.md)
 * [Subscriptions](../orders-and-fulfillment/subscriptions/managing-subscriptions.md)
-* [Currencies](../store-administration/currencies/adding-a-new-currency.md)
+* [Currencies](./currencies/adding-a-new-currency.md)
 * [Inventory](../managing-a-catalog/managing-inventory/introduction-to-managing-inventory.md)
 * [Warehouses](../managing-a-catalog/managing-inventory/warehouse-reference-guide.md)
 * [Availability Estimates](../managing-a-catalog/managing-inventory/availability-estimates.md)
@@ -42,9 +42,9 @@ The Commerce Global Settings menu contains the following tabs:
 ![Commerce Global Settings Tab](./liferay-commerce-configuration-overview/images/02.png)
 
 * [Availability Estimates](../managing-a-catalog/managing-inventory/availability-estimates.md)
-* [Adding a New Currency](../store-administration/currencies/adding-a-new-currency.md)
-* [Measurement Units](../store-administration/configuring-shipping-methods/measurement-units.md)
-* [Regions](../store-administration/adding-regions.md)
+* [Adding a New Currency](./currencies/adding-a-new-currency.md)
+* [Measurement Units](./configuring-shipping-methods/measurement-units.md)
+* [Regions](./adding-regions.md)
 * [Warehouses](../managing-a-catalog/managing-inventory/warehouse-reference-guide.md)
 
 ### Commerce Site Settings
@@ -61,7 +61,7 @@ The following site settings are found here:
 
 * [Notifications](./sending-emails/using-notification-templates.md)
 * [Introduction to Order Workflows](../orders-and-fulfillment/order-workflows/introduction-to-order-workflows.md)
-* [Payment Methods](../store-administration/configuring-payment-methods/payments.md)
+* [Payment Methods](./configuring-payment-methods/payments.md)
 * Product Display Pages
-* [Shipping Methods](../store-administration/configuring-shipping-methods/shipping-method-reference.md)
+* [Shipping Methods](./configuring-shipping-methods/shipping-method-reference.md)
 * [Site Types](../starting-a-store/sites-and-site-types.md)

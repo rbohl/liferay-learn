@@ -128,7 +128,7 @@ Now you can tell how many visitors completely read your content. [Content perfor
 
 ## Questions app
 
-If you use your site to support products, the new [Questions app](../collaboration-and-social/using-the-questions-app.md) can help your users find answers to the questions they have about your products. Taking advantage of Liferay's GraphQL APIs and Message Boards infrastructure, the questions app gets users the best answers through voting and marking the most valuable information. 
+If you use your site to support products, the new [Questions app](../collaboration-and-social/questions/using-the-questions-app.md) can help your users find answers to the questions they have about your products. Taking advantage of Liferay's GraphQL APIs and Message Boards infrastructure, the questions app gets users the best answers through voting and marking the most valuable information. 
 
 ![Users can post a question and get answers quickly.](./whats-new-73/images/17.gif)
 

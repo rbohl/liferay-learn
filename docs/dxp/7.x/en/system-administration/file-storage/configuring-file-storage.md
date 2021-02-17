@@ -1,6 +1,6 @@
 # Configuring File Storage
 
-Widgets that store files (for example, [Documents and Media](../../../collaboration-and-social/collaboration-and-social-overview.md)) and that support file attachments (for example, [Message Boards](../../../collaboration-and-social/collaboration-and-social-overview.md)), use DXP's file store. The files are saved to and retrieved from the file store. The file store can be hosted on the local machine, on a network mounted file system, in a database, or in the cloud.
+Widgets that store files (for example, [Documents and Media](../../collaboration-and-social/collaboration-and-social-overview.md)) and that support file attachments (for example, [Message Boards](../../collaboration-and-social/collaboration-and-social-overview.md)), use DXP's file store. The files are saved to and retrieved from the file store. The file store can be hosted on the local machine, on a network mounted file system, in a database, or in the cloud.
 
 ```important::
    If you are going to production, we highly recommend reviewing the various File Store configuration options and choosing the one that best fits your needs, **before** going live. Doing so can avoid painful file store migrations later in a project's life.
@@ -14,7 +14,7 @@ The Advanced File System Store programmatically creates a folder structure that 
 
 To use the Advanced File System store method, following these steps:
 
-1. Configure [`portal-ext.properties`](../../../installation-and-upgrades/reference/portal-properties.md) with this property:
+1. Configure [`portal-ext.properties`](../../installation-and-upgrades/reference/portal-properties.md) with this property:
 
     ```properties
     dl.store.impl=com.liferay.portal.store.file.system.AdvancedFileSystemStore
@@ -24,7 +24,7 @@ To use the Advanced File System store method, following these steps:
 
 1. In the Control Panel, navigate to _Configuration_ &rarr; _System Settings_ &rarr; _File Storage_.
 
-1. In the _Advanced File System Store_ screen, set the _Root Directory_ to your [Liferay Home](../../../installation-and-upgrades/reference/liferay-home.md) path (absolute or relative).
+1. In the _Advanced File System Store_ screen, set the _Root Directory_ to your [Liferay Home](../../installation-and-upgrades/reference/liferay-home.md) path (absolute or relative).
 
     ![Advanced File System Store screen](./configuring-file-storage/images/02.png)
 
@@ -34,7 +34,7 @@ DXP is now saving files using Advanced File System Store.
 
 ### File Storage in a Clustered Environment
 
-In a [clustered environment](../../../installation-and-upgrades/setting-up-liferay/clustering-for-high-availability/clustering-for-high-availability.md), point the store to a network mounted file system that all the nodes can access. The networked file system must be accessible to all nodes, support concurrent requests, and support file locking. If Advanced File System Store is used without such a file system and multiple users attempt writing to the same file concurrently, data corruption can occur.
+In a [clustered environment](../../installation-and-upgrades/setting-up-liferay/clustering-for-high-availability/clustering-for-high-availability.md), point the store to a network mounted file system that all the nodes can access. The networked file system must be accessible to all nodes, support concurrent requests, and support file locking. If Advanced File System Store is used without such a file system and multiple users attempt writing to the same file concurrently, data corruption can occur.
 
 ## Other File Storage Topics
 

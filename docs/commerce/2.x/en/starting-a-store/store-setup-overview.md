@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This article is intended to provide a walk through for users who are new to building a store in Liferay Commerce. It assumes that Liferay Commerce (and Liferay DXP) have been appropriately installed and configured. For more information on installation, see the [Installation Overview](../../installation-and-upgrades/installation-overview.md).
+This article is intended to provide a walk through for users who are new to building a store in Liferay Commerce. It assumes that Liferay Commerce (and Liferay DXP) have been appropriately installed and configured. For more information on installation, see the [Installation Overview](../installation-and-upgrades/installation-overview.md).
 
 ## Road Map
 
@@ -30,7 +30,7 @@ Global configurations for Liferay Commerce include setting the store timezone, a
 
 ### Create a Store Site
 
-Liferay Commerce supports B2B, B2C, and B2C-B2B stores. [Site Types](../starting-a-store/sites-and-site-types.md) designate a store's business model and will determine how the storefront works with Accounts.
+Liferay Commerce supports B2B, B2C, and B2C-B2B stores. [Site Types](./sites-and-site-types.md) designate a store's business model and will determine how the storefront works with Accounts.
 
 Liferay Commerce is built on Liferay DXP; For more information about how Liferay DXP Sites work, see [Building a Site](https://learn.liferay.com/dxp/7.x/en/site-building/building-sites/adding-a-site.html).
 
