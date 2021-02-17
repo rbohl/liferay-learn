@@ -42,7 +42,7 @@ Nice! Specifying dependencies is a skill you can depend on!
 
 ## Additional Information
 
-* [Finding Artifacts]./finding-artifacts.md)
+* [Finding Artifacts](./finding-artifacts.md)
 * [Importing Packages](../importing-packages.md)
 * [Exporting Packages](../exporting-packages.md)
 * [Resolving Third Party Library Package Dependencies](./resolving-third-party-library-package-dependencies.md)
