@@ -51,5 +51,5 @@ The Tax Category is now available for your store.
 
 ## Additional Information
 
-* [Setting Tax Rates by Address](../configuring-taxes/setting-tax-rate-by-address.md)
-* [Setting Fixed Tax Rates](../configuring-taxes/setting-tax-rate-by-fixed-rate.md)
+* [Setting Tax Rates by Address](./setting-tax-rate-by-address.md)
+* [Setting Fixed Tax Rates](./setting-tax-rate-by-fixed-rate.md)

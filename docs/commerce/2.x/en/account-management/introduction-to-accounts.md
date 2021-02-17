@@ -4,7 +4,7 @@ In Liferay Commerce, accounts store information about customers and are used to 
 
 ## Account Types
 
-* **Business Accounts**: For the _B2B_ site type, an individual customer _must_ be assigned to a _Business_ account in order to make a purchase. Multiple users may be associated with a single business account and these users can be assigned unique [Account Roles](../account-management/account-roles.md).
+* **Business Accounts**: For the _B2B_ site type, an individual customer _must_ be assigned to a _Business_ account in order to make a purchase. Multiple users may be associated with a single business account and these users can be assigned unique [Account Roles](./account-roles.md).
 
 * **Personal Accounts**: For the _B2C_ site type, individual authenticated customers will automatically be associated with a _Personal_ account and be able to make purchases.
 
@@ -22,11 +22,11 @@ There are two ways to manage accounts: 1) using the _Account Management_ widget 
 
 > Accounts and their associated users may also be managed through the _Accounts_ widget in the _Control Panel_.
 
-Accounts may also be grouped together as needed to facilitate account management or marketing needs. See [Creating a New Account Group](../account-management/creating-a-new-account-group.md) for more information.
+Accounts may also be grouped together as needed to facilitate account management or marketing needs. See [Creating a New Account Group](./creating-a-new-account-group.md) for more information.
 
 ![List of Account Groups in the Control Panel](./introduction-to-accounts/images/02.png)
 
-Finally, individual users associated with a given Business Account may be given _Account Roles_ to delegate and self-service their accounts for their business. For more information see [Account Roles](../account-management/account-roles.md)
+Finally, individual users associated with a given Business Account may be given _Account Roles_ to delegate and self-service their accounts for their business. For more information see [Account Roles](./account-roles.md)
 
 ![Assigning User Roles in the Account Management Widget](./introduction-to-accounts/images/03.png)
 
@@ -34,13 +34,13 @@ Finally, individual users associated with a given Business Account may be given 
 
 See the following articles to learn more about common Account Management actions:
 
-* [Creating a New Account](../account-management/creating-a-new-account.md)
-* [Inviting Users to an Account](../account-management/inviting-users-to-an-account.md)
-* [Assigning Account Roles](../account-management/assigning-account-roles.md)
-* [Adding Addresses to an Account](../account-management/adding-addresses-to-an-account.md)
-* [Creating a New Account Group](../account-management/creating-a-new-account-group.md)
+* [Creating a New Account](./creating-a-new-account.md)
+* [Inviting Users to an Account](./inviting-users-to-an-account.md)
+* [Assigning Account Roles](./assigning-account-roles.md)
+* [Adding Addresses to an Account](./adding-addresses-to-an-account.md)
+* [Creating a New Account Group](./creating-a-new-account-group.md)
 
 ## Additional Information
 
 * [Sites and Site Types](../starting-a-store/sites-and-site-types.md)
-* [Account Roles](../account-management/account-roles.md)
+* [Account Roles](./account-roles.md)

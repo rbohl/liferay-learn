@@ -46,8 +46,8 @@ The users have been added to the account.
 
 ## Additional Information
 
-* [Introduction to Accounts](../account-management/introduction-to-accounts.md)
+* [Introduction to Accounts](./introduction-to-accounts.md)
 * [Managing Users and Accounts](../README.md)
-* [Creating a New Account](../account-management/creating-a-new-account.md)
-* [Assigning Account Roles](../account-management/assigning-account-roles.md)
-* [Creating a New Account Group](../account-management/creating-a-new-account-group.md)
+* [Creating a New Account](./creating-a-new-account.md)
+* [Assigning Account Roles](./assigning-account-roles.md)
+* [Creating a New Account Group](./creating-a-new-account-group.md)
