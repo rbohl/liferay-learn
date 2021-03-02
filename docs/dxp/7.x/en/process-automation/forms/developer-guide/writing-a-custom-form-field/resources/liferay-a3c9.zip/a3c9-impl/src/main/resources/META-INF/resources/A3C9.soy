@@ -1,0 +1,58 @@
+    {namespace A3C9}
+
+    /**
+    * Prints the A3C9 field.
+    */
+    {template .render}
+        {@param label: string}
+        {@param name: string}
+        {@param showLabel: bool}
+        {@param tip: string}
+        {@param value: ?}
+        {@param? predefinedValue: any}
+        {@param? required: bool}
+        {@param? spritemap: string}
+
+        {call FieldBase.render}
+            {param contentRenderer kind="html"}
+                {call .content}
+                    {param name: $name /}
+                    {param value: $value /}
+                    {param predefinedValue: $predefinedValue /}
+                {/call}
+            {/param}
+            {param label: $label /}
+            {param name: $name /}
+            {param required: $required /}
+            {param showLabel: $showLabel /}
+            {param spritemap: $spritemap /}
+            {param tip: $tip /}
+        {/call}
+    {/template}
+
+    {template .content}
+        {@param name: string}
+        {@param value: ?}
+        {@param? predefinedValue: any}
+        {let $attributes kind="attributes"}
+            class="ddm-field-a3c9 form-control a3c9"
+
+            id="myRange"
+
+            max="100"
+
+            min="1"
+
+            name="{$name}"
+
+            type="range"
+
+            {if $value}
+                value="{$value}"
+            {else}
+                value="{$predefinedValue}"
+            {/if}
+        {/let}
+
+        <input {$attributes}>
+    {/template}
