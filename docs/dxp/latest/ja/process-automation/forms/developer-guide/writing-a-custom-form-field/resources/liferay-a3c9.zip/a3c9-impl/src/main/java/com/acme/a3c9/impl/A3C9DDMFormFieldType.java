@@ -39,4 +39,5 @@ public class A3C9DDMFormFieldType extends BaseDDMFormFieldType {
 
 	@Reference
 	private NPMResolver _npmResolver;
+
 }
