@@ -1,4 +1,4 @@
-package com.acme.a3c9.impl;
+package com.acme.a3c9.dynamic.data.mapping.form.field.type.internal;
 
 import com.liferay.dynamic.data.mapping.form.field.type.BaseDDMFormFieldType;
 import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldType;
