@@ -1,6 +1,6 @@
-# Using Data Providers to Populate Form Options
+# Using the REST Data Provider to Populate Form Options
 
-_Select from List_ fields can hold many options. Those options can be automatically supplied by using the JSON web services registered in Liferay DXP or any other third party REST web service. To learn more about data providers in general, see the [Data Providers Overview](./data-providers-overview.md). This article walks users on how to invoke a JSON web service, configure the data provider, and add the data provider to a form.
+_Select from List_ fields can hold many options. Those options can be automatically supplied by using the JSON web services registered in Liferay DXP or any other third party REST web service. To learn more about data providers in general, see [Data Providers Overview](./data-providers-overview.md). This article walks users on how to invoke a JSON web service, configure the data provider, and add the data provider to a form.
 
 ## Prerequisites
 
@@ -15,7 +15,7 @@ Next, use the `get-countries` JSON web service (there are two---use either one).
 1. Navigate to [http://localhost:8080/api/jsonws](http://localhost:8080/api/jsonws).
 1. Search for "get-countries".
 
-    ![Search for the get-countries web service.](./using-data-providers-to-populate-form-options/images/02.png)
+    ![Search for the get-countries web service.](./using-the-rest-data-provider-to-populate-form-options/images/02.png)
 
 1. Click _Invoke_.
 
@@ -31,7 +31,7 @@ To enable local network access from data providers:
 1. Click _Data Providers_ (under Content & Data).
 1. Check the _Access Local Network_ checkbox.
 
-    ![Grant access to the local network.](./using-data-providers-to-populate-form-options/images/01.png)
+    ![Grant access to the local network.](./using-the-rest-data-provider-to-populate-form-options/images/01.png)
 
 1. Click _Save_ when finished.
 
@@ -44,7 +44,7 @@ To add a _Countries of the World_ Data Provider:
 1. Click _Content & Data_ &rarr; _Forms_.
 1. Click the _Data Providers_ tab.
 
-    ![Navigate to the data providers tab.](./using-data-providers-to-populate-form-options/images/03.png)
+    ![Navigate to the data providers tab.](./using-the-rest-data-provider-to-populate-form-options/images/03.png)
 
 1. Click the Add button (![Add](../../../images/icon-add.png)).
 1. Enter the following:
@@ -58,7 +58,7 @@ To add a _Countries of the World_ Data Provider:
     * **Outputs Path**: `$..nameCurrentValue`
     * **Outputs Type**: List
 
-    ![Enter the values.](./using-data-providers-to-populate-form-options/images/04.png)
+    ![Enter the values.](./using-the-rest-data-provider-to-populate-form-options/images/04.png)
 
 1. Click _Save_ when finished.
 
@@ -94,7 +94,7 @@ To configure the data provider's permissions:
 1. Click the Data Providers tab.
 1. Click the Actions button (![Actions](../../../images/icon-actions.png)), then _Permissions_ next to the data provider.
 
-    ![Grant Guest View Permissions.](./using-data-providers-to-populate-form-options/images/05.png)
+    ![Grant Guest View Permissions.](./using-the-rest-data-provider-to-populate-form-options/images/05.png)
 
 1. Grant the necessary permissions.
 1. Click _Save_ when finished.
@@ -109,13 +109,13 @@ Once the Data Provider is configured, use it to populate a Select from List fiel
 1. Select _Countries of the World_ from the Choose a Data Provider dropdown menu.
 1. Select _Country Name_ from the Choose an Output Parameter dropdown menu.
 
-    ![Configure the Data Provider values on the Select from List field.](./using-data-providers-to-populate-form-options/images/06.png)
+    ![Configure the Data Provider values on the Select from List field.](./using-the-rest-data-provider-to-populate-form-options/images/06.png)
 
 1. Click _Save Form_ when finished.
 
 The Data Provider is now being used to populate a select field.
 
-![Form users select an option form the list populated by the Data Provider.](./using-data-providers-to-populate-form-options/images/07.png)
+![Form users select an option form the list populated by the Data Provider.](./using-the-rest-data-provider-to-populate-form-options/images/07.png)
 
 ## Troubleshooting Data Provider Errors
 
@@ -130,4 +130,5 @@ The console now sends warning messages whenever there are errors in the Data Pro
 
 ## Additional Information
 
+* [Data Providers Overview](./data-providers-overview.md)
 * [Using the Autofill Rule](../form-rules/using-the-autofill-rule.md)
