@@ -24,6 +24,8 @@ String fontFamily = StringPool.BLANK;
 String fontColor = StringPool.BLANK;
 String fontSize = StringPool.BLANK;
 
+// remove logic from the JSP: 
+// set defaults in the configuration class instead of doing this
 if (messageDisplayConfiguration != null) {
 	fontFamily = portletPreferences.getValue("fontFamily", messageDisplayConfiguration.fontFamily());
 	fontColor = portletPreferences.getValue("fontColor", messageDisplayConfiguration.fontColor());
@@ -31,6 +33,7 @@ if (messageDisplayConfiguration != null) {
 }
 %>
 
+<!-- remove logic from the JSP -->
 <c:choose>
 	<c:when test='<%= Validator.isNull(fontFamily) && Validator.isNull(fontColor) && (Validator.isNull(fontSize) || fontSize.equals("0")) %>'>
 		<liferay-ui:message

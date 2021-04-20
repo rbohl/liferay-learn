@@ -24,7 +24,6 @@ import org.osgi.service.component.annotations.Modified;
 		"com.liferay.portlet.display-category=category.sample",
 		"javax.portlet.display-name=E3Q3 Portlet",
 		"javax.portlet.init-param.view-template=/view.jsp",
-		"javax.portlet.name=E3Q3Portlet",
 		"javax.portlet.resource-bundle=content.Language"
 	},
 	service = Portlet.class
@@ -32,7 +31,7 @@ import org.osgi.service.component.annotations.Modified;
 public class E3Q3Portlet extends MVCPortlet {
 
 	@Override
-	public void doView(
+	public void render(
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
 
