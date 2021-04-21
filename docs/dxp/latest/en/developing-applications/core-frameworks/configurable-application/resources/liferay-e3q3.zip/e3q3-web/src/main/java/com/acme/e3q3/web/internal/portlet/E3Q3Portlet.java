@@ -1,12 +1,6 @@
 package com.acme.e3q3.web.internal.portlet;
 
-import com.acme.e3q3.web.internal.configuration.MessageDisplayConfiguration;
-
-import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
-import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-
 import java.io.IOException;
-
 import java.util.Map;
 
 import javax.portlet.Portlet;
@@ -18,8 +12,12 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Modified;
 
+import com.acme.e3q3.web.internal.configuration.E3Q3WebConfiguration;
+import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+
 @Component(
-	configurationPid = "com.acme.e3q3.web.internal.configuration.MessageDisplayConfiguration",
+	configurationPid = "com.acme.e3q3.web.internal.configuration.E3Q3WebConfiguration",
 	property = {
 		"com.liferay.portlet.display-category=category.sample",
 		"javax.portlet.display-name=E3Q3 Portlet",
@@ -35,20 +33,20 @@ public class E3Q3Portlet extends MVCPortlet {
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
 
-		renderRequest.setAttribute(
-			MessageDisplayConfiguration.class.getName(),
-			_messageDisplayConfiguration);
+		renderRequest.setAttribute("fontColor", _e3q3WebConfiguration.fontColor());
+		renderRequest.setAttribute("fontFamily", _e3q3WebConfiguration.fontFamily());
+		renderRequest.setAttribute("fontSize", _e3q3WebConfiguration.fontSize());
 
-		super.doView(renderRequest, renderResponse);
+		super.render(renderRequest, renderResponse);
 	}
 
 	@Activate
 	@Modified
 	protected void activate(Map<Object, Object> properties) {
-		_messageDisplayConfiguration = ConfigurableUtil.createConfigurable(
-			MessageDisplayConfiguration.class, properties);
+		_e3q3WebConfiguration = ConfigurableUtil.createConfigurable(
+			E3Q3WebConfiguration.class, properties);
 	}
 
-	private volatile MessageDisplayConfiguration _messageDisplayConfiguration;
+	private volatile E3Q3WebConfiguration _e3q3WebConfiguration;
 
 }
