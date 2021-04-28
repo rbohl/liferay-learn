@@ -22,7 +22,7 @@
 	"scripts": {
 		"build": "npm run build-soy && npm run build-js && liferay-npm-bundler",
 		"build-js": "babel --source-maps -d build/resources/main/META-INF/resources src/main/resources/META-INF/resources",
-		"build-soy": "metalsoy --externalMsgFormat \"Liferay.Language.get('\\$2')\" --soyDeps \"$NPM_CONFIG_PREFIX/lib/node_modules/clay-*/src/**/*.soy\" \"$NPM_CONFIG_PREFIX/lib/node_modules/com.liferay.dynamic.data.mapping.form.field.type/META-INF/resources/+(FieldBase|components)/**/*.soy\""
+		"build-soy": "metalsoy --externalMsgFormat \"Liferay.Language.get('\\$2')\" --soyDeps \"./node_modules/clay-*/src/**/*.soy\" \"./node_modules/com.liferay.dynamic.data.mapping.form.field.type/META-INF/resources/+(FieldBase|components)/**/*.soy\""
 	},
 	"version": "1.0.0"
 }
