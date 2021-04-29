@@ -7,6 +7,7 @@ Liferay Enterprise Search
    liferay-enterprise-search/cross_cluster_replication.rst
    liferay-enterprise-search/learning-to-rank.md
    liferay-enterprise-search/monitoring-elasticsearch.md
+   liferay-enterprise-search/blueprints.rst
 
 A Liferay Enterprise Search (LES) subscription provides access to additional search features beyond what's available out of the box with your Liferay DXP subscription. To see a detailed description of the services and features included with LES on your version of Liferay DXP, refer to the official description of LES in the `Liferay DXP Components resource <https://help.liferay.com/hc/en-us/articles/360014400932>`__.  
 
@@ -22,6 +23,11 @@ Detailed installation and usage instructions are available in the article for ea
 
 .. important::
    Always check the `LES compatibility matrix <https://help.liferay.com/hc/en-us/articles/360016511651#Liferay-Enterprise-Search>`__ for compatibility information.
+
+Blueprints
+----------
+
+-  :doc:`/using-search/liferay-enterprise-search/blueprints/understanding-blueprints`
 
 Cross Cluster Replication
 -------------------------
