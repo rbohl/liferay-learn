@@ -5,6 +5,7 @@ Core Frameworks
    :maxdepth: 3
 
    core-frameworks/background-tasks.md
+   core-frameworks/configurable_application.rst
    core-frameworks/locks.md
    core-frameworks/message-bus.md
    core-frameworks/scheduler.md
