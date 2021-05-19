@@ -40,7 +40,7 @@ Liferay's configuration interface provides a simple method to add a configuratio
 
     ![Add the E3Q3 Portlet to a page.](./setting-and-accessing-configurations/images/01.png)
 
-    You should see a welcome message along with the 3 attributes that can be configured: font color, font family, and font size.
+    The UI shows a welcome message along with the 3 attributes that can be configured: font color, font family, and font size.
 
 1. To change the configuration, navigate to *Control Panel* &rarr; *Configuration* &rarr; *System Settings*. Under *Platform* click *Third Party*. Click the name of the sample application on the left.
 
@@ -52,9 +52,9 @@ Now let's see how the configuration interface works.
 
 ## Creating the Configuration Interface
 
-Creating a configuration interface adds a UI in settings. It also defines the attributes that are configurable.
+Defining configurable attributes in a configuration interface is enough to generate a configuration UI in [System Settings](../../../system-administration/configuring-liferay/system-settings.md). It also defines the attributes that are configurable.
 
-In the sample project, the E3Q3WebConfiguration.java file is the configuration interface. 
+In the sample project, the `E3Q3WebConfiguration.java` file is the configuration interface. 
 
 ```java
 @Meta.OCD(id = "com.acme.e3q3.web.internal.configuration.E3Q3WebConfiguration")
@@ -131,7 +131,7 @@ Next we'll see how the configuration is read by the MVC Portlet.
     configurationPid = "com.acme.e3q3.web.internal.configuration.E3Q3WebConfiguration"
     ```
 
-1. The `activate()` method has an `@Activate` annotation that is used to invoke the method as soon as the app is started. The `@Modified` annotation is invoked whenever the configuration is modified.
+1. The `activate()` method has an `@Activate` annotation that is used to invoke the method as soon as the app is started. The `@Modified` annotation ensures the method is invoked whenever the configuration is updated.
 
     ```java
     @Activate
