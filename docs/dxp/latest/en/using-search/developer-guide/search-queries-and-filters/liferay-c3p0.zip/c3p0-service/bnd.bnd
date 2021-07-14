@@ -1,0 +1,3 @@
+Bundle-Name: Acme C3P0 Service
+Bundle-SymbolicName: com.acme.c3p0.service
+Bundle-Version: 1.0.0

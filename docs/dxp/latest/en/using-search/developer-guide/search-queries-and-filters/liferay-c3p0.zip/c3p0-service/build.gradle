@@ -1,0 +1,6 @@
+buildService {
+    apiDir = "../c3p0-api/src/main/java"
+}
+dependencies {
+	compileOnly group: "com.liferay.portal", name: "release.portal.api"
+}
