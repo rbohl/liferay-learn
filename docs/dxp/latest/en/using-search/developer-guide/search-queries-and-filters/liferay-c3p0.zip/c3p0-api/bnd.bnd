@@ -1,0 +1,4 @@
+Bundle-Name: Acme C3P0 API
+Bundle-SymbolicName: com.acme.c3p0.api
+Bundle-Version: 1.0.0
+Export-Package: com.acme.c3p0
